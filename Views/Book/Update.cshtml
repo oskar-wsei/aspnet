@@ -1,0 +1,48 @@
+﻿@model Book
+@{
+    ViewData["Title"] = "Create book";
+}
+
+<div>
+    <a class="btn btn-dark mb-3" asp-action="Index"><i class="fa-solid fa-left-long"></i> Go back</a>
+    <h1 class="display-4">Update book</h1>
+    <form method="post" asp-action="Update" asp-controller="Book" asp-route-id="@Model.Id">
+        <div class="mb-3">
+            <label class="form-label" asp-for="Title"></label>
+            <input class="form-control" asp-for="Title" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="Author"></label>
+            <input class="form-control" asp-for="Author" />
+            <span asp-validation-for="Author" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="Pages"></label>
+            <input class="form-control" asp-for="Pages" />
+            <span asp-validation-for="Pages" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="ISBN"></label>
+            <input class="form-control" asp-for="ISBN" />
+            <span asp-validation-for="ISBN" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="PublishYear"></label>
+            <input class="form-control" asp-for="PublishYear" />
+            <span asp-validation-for="PublishYear" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="Publisher"></label>
+            <input class="form-control" asp-for="Publisher" />
+            <span asp-validation-for="Publisher" class="text-danger"></span>
+        </div>
+      
+        <button class="btn btn-dark px-5 mt-3" type="submit">Update</button>
+    </form>
+</div>
