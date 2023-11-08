@@ -1,5 +1,6 @@
 using Lab3App.Contracts;
 using Lab3App.Services;
+using Lab3Data;
 
 namespace Lab3App;
 
@@ -11,8 +12,9 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
-        builder.Services.AddSingleton<IBookService, MemoryBookService>();
+        builder.Services.AddTransient<IBookService, DbBookService>();
         builder.Services.AddSingleton<IDateTimeProvider, CurrentDateTimeProvider>();
+        builder.Services.AddDbContext<AppDbContext>();
 
         var app = builder.Build();
 
