@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace BooksApp.Models;
@@ -11,10 +13,6 @@ public class Book
     [Required]
     [StringLength(maximumLength: 1024)]
     public string? Title { get; set; }
-
-    [Required]
-    [StringLength(maximumLength: 1024)]
-    public string? Author { get; set; }
 
     [Required]
     [Range(0, int.MaxValue)]
@@ -36,4 +34,10 @@ public class Book
 
     [HiddenInput]
     public DateTime? UpdatedAt { get; set; }
+
+    [HiddenInput]
+    public int AuthorId { get; set; }
+
+    [ValidateNever]
+    public List<SelectListItem> Authors { get; set; }
 }

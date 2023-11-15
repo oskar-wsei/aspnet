@@ -15,8 +15,10 @@ public class BookEntity
     public string? Title { get; set; }
 
     [Required]
-    [Column("author")]
-    public string? Author { get; set; }
+    [Column("author_id")]
+    public int? AuthorId { get; set; }
+
+    public AuthorEntity? Author { get; set; }
 
     [Required]
     [Column("pages")]
