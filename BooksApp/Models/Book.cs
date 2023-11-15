@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace Lab3App.Models;
+namespace BooksApp.Models;
 
 public class Book
 {

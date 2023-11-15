@@ -1,8 +1,8 @@
-﻿using Lab3App.Contracts;
-using Lab3App.Models;
+﻿using BooksApp.Contracts;
+using BooksApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Lab3App.Controllers;
+namespace BooksApp.Controllers;
 
 public class BookController : Controller
 {

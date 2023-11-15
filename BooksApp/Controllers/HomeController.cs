@@ -1,8 +1,8 @@
-﻿using Lab3App.Models;
+﻿using BooksApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Lab3App.Controllers;
+namespace BooksApp.Controllers;
 
 public class HomeController : Controller
 {

@@ -1,9 +1,9 @@
-﻿using Lab3App.Contracts;
-using Lab3App.Mappers;
-using Lab3App.Models;
-using Lab3Data;
+﻿using BooksApp.Contracts;
+using BooksApp.Mappers;
+using BooksApp.Models;
+using BooksAppData;
 
-namespace Lab3App.Services;
+namespace BooksApp.Services;
 
 public class DbBookService : IBookService
 {

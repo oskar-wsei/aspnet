@@ -1,4 +1,4 @@
-namespace Lab3App.Models;
+namespace BooksApp.Models;
 
 public class ErrorViewModel
 {

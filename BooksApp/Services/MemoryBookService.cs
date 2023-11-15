@@ -1,7 +1,7 @@
-﻿using Lab3App.Contracts;
-using Lab3App.Models;
+﻿using BooksApp.Contracts;
+using BooksApp.Models;
 
-namespace Lab3App.Services;
+namespace BooksApp.Services;
 
 public class MemoryBookService : IBookService
 {

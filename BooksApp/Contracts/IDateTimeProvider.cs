@@ -1,4 +1,4 @@
-﻿namespace Lab3App.Contracts
+﻿namespace BooksApp.Contracts
 {
     public interface IDateTimeProvider
     {

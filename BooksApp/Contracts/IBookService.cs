@@ -1,6 +1,6 @@
-﻿using Lab3App.Models;
+﻿using BooksApp.Models;
 
-namespace Lab3App.Contracts;
+namespace BooksApp.Contracts;
 
 public interface IBookService
 {

@@ -1,7 +1,7 @@
-﻿using Lab3App.Models;
-using Lab3Data.Entities;
+﻿using BooksApp.Models;
+using BooksAppData.Entities;
 
-namespace Lab3App.Mappers;
+namespace BooksApp.Mappers;
 
 public class BookMapper
 {

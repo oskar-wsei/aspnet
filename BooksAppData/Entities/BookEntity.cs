@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Lab3Data.Entities;
+namespace BooksAppData.Entities;
 
 [Table("books")]
 public class BookEntity

@@ -1,6 +1,6 @@
-﻿using Lab3App.Contracts;
+﻿using BooksApp.Contracts;
 
-namespace Lab3App.Services;
+namespace BooksApp.Services;
 
 public class CurrentDateTimeProvider : IDateTimeProvider
 {

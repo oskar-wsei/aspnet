@@ -1,7 +1,7 @@
-﻿using Lab3Data.Entities;
+﻿using BooksAppData.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Lab3Data;
+namespace BooksAppData;
 
 public class AppDbContext : DbContext
 {
