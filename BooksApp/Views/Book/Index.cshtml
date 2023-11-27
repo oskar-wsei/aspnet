@@ -32,7 +32,16 @@
                     <td>
                         <a asp-action="Details" asp-route-id="@book.Id">@book.Title</a>
                     </td>
-                    <td>@book.Author</td>
+                    <td>
+                        @if (book.Author is not null)
+                        {
+                            <span>@book.Author.FullName</span>
+                        }
+                        else
+                        {
+                            <span><i>None</i></span>
+                        }
+                    </td>
                     <td>@book.PublishYear</td>
                     <td class="p-0">
                         <div class="dropdown text-end">

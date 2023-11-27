@@ -1,7 +1,9 @@
-﻿using BooksApp.Contracts;
-using BooksApp.Mappers;
+﻿using AutoMapper;
+using BooksApp.Contracts;
 using BooksApp.Models;
 using BooksAppData;
+using BooksAppData.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BooksApp.Services;
 
@@ -9,17 +11,20 @@ public class DbBookService : IBookService
 {
     private readonly AppDbContext _dbContext;
     private readonly IDateTimeProvider _dateTimeProvider;
+    private readonly IMapper _mapper;
 
-    public DbBookService(AppDbContext dbContext, IDateTimeProvider dateTimeProvider)
+    public DbBookService(AppDbContext dbContext, IDateTimeProvider dateTimeProvider, IMapper mapper)
     {
         _dbContext = dbContext;
         _dateTimeProvider = dateTimeProvider;
+        _mapper = mapper;
     }
 
     public int Add(Book book)
     {
-        book.CreatedAt = _dateTimeProvider.GetDate();
-        var entry = _dbContext.Books.Add(BookMapper.ToEntity(book));
+        var entity = _mapper.Map<BookEntity>(book);
+        entity.CreatedAt = _dateTimeProvider.GetDate();
+        var entry = _dbContext.Books.Add(entity);
         _dbContext.SaveChanges();
         return entry.Entity.Id ?? 0;
     }
@@ -32,25 +37,27 @@ public class DbBookService : IBookService
         _dbContext.SaveChanges();
     }
 
-    public List<Book> FindAll()
+    public List<Book> FindAll(bool includeAuthor)
     {
-        return _dbContext.Books.Select(entity => BookMapper.FromEntity(entity)).ToList();
+        var query = _dbContext.Books.AsQueryable();
+        if (includeAuthor) query = query.Include(book => book.Author);
+        return _mapper.Map<List<Book>>(query.ToList());
     }
 
-    public Book? FindById(int id)
+    public Book? FindById(int id, bool includeAuthor)
     {
-        var entity = _dbContext.Books.Find(id);
-        if (entity is null) return null;
-        return BookMapper.FromEntity(entity);
+        var query = _dbContext.Books.AsQueryable();
+        if (includeAuthor) query = query.Include(book => book.Author);
+        var entity = query.FirstOrDefault(b => b.Id == id);
+        return entity is null ? null : _mapper.Map<Book>(entity);
     }
 
     public void Update(Book book)
     {
-        var previousBook = _dbContext.Books.Find(book.Id);
-        if (previousBook is null) return;
-        book.CreatedAt = previousBook.CreatedAt;
-        book.UpdatedAt = _dateTimeProvider.GetDate();
-        var entity = BookMapper.ToEntity(book);
+        var entity = _dbContext.Books.Find(book.Id);
+        if (entity is null) return;
+        _mapper.Map(book, entity);
+        entity.UpdatedAt = _dateTimeProvider.GetDate();
         _dbContext.Update(entity);
         _dbContext.SaveChanges();
     }

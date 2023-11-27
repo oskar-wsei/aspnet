@@ -30,12 +30,12 @@ public class MemoryBookService : IBookService
         _books.Remove(id);
     }
 
-    public List<Book> FindAll()
+    public List<Book> FindAll(bool includeAuthor)
     {
         return _books.Values.ToList();
     }
 
-    public Book? FindById(int id)
+    public Book? FindById(int id, bool includeAuthor)
     {
         if (!_books.ContainsKey(id)) return null;
         return _books[id];
@@ -55,21 +55,21 @@ public class MemoryBookService : IBookService
         Add(new Book
         {
             Title = "ASP.NET Core in Action",
-            Author = "Andrew Lock",
+            AuthorId = 1,
             Pages = 370,
             PublishYear = 2017
         });
         Add(new Book
         {
             Title = "Microservices in .NET",
-            Author = "Christian Gammelgaard",
+            AuthorId = 2,
             Pages = 300,
             PublishYear = 2020
         });
         Add(new Book
         {
             Title = "Ultimate ASP.NET Core Web API",
-            Author = "Marinko Spasojevic",
+            AuthorId = 2,
             Pages = 250,
             PublishYear = 2019
         });

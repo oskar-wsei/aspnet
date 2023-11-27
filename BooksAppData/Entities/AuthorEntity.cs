@@ -19,4 +19,7 @@ public class AuthorEntity
     public string? LastName { get; set; }
 
     public ISet<BookEntity> Books { get; set; }
+    
+    public string? FullName =>
+        FirstName is null ? LastName : LastName is not null ? $"{FirstName} {LastName}" : FirstName;
 }

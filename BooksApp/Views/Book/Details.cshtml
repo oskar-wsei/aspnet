@@ -7,7 +7,10 @@
     <a class="btn btn-dark mb-3" asp-action="Index"><i class="fa-solid fa-left-long"></i> Go back</a>
     <h1 class="display-4">Book details</h1>
     <h2 class="mb-4">@Model.Title</h2>
-    <p>by @Model.Author</p>
+    @if (Model.Author is not null)
+    {
+        <p>by @Model.Author.FullName</p>
+    }
     <p>@Model.Pages page(s)</p>
     <p>ISBN: @Model.ISBN</p>
     <p>Publisher: @Model.Publisher</p>

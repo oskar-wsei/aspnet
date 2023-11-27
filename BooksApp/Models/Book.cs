@@ -35,8 +35,12 @@ public class Book
     [HiddenInput]
     public DateTime? UpdatedAt { get; set; }
 
+    [Display(Name = "Author")]
     [HiddenInput]
-    public int AuthorId { get; set; }
+    public int? AuthorId { get; set; }
+
+    [HiddenInput]
+    public Author? Author { get; set; }
 
     [ValidateNever]
     public List<SelectListItem> Authors { get; set; }
