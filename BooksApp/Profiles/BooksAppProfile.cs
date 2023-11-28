@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BooksApp.Models;
+using BooksApp.Pagination;
 using BooksAppData.Entities;
 
 namespace BooksApp.Profiles;

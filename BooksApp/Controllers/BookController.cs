@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BooksApp.Controllers;
 
-[Authorize(Roles = "ADMIN")]
 public class BookController : Controller
 {
     private readonly IBookService _bookService;
@@ -23,9 +22,14 @@ public class BookController : Controller
     [AllowAnonymous]
     public IActionResult Index()
     {
-        Console.WriteLine(User.IsInRole("Admin"));
-        
         return View(_bookService.FindAll(includeAuthor: true));
+    }
+
+    [HttpGet]
+    [AllowAnonymous]
+    public IActionResult PagedIndex([FromQuery] int page = 1, [FromQuery] int size = 2)
+    {
+        return View(_bookService.FindPage(page, size, includeAuthor: true));
     }
 
     [HttpGet]
@@ -40,6 +44,21 @@ public class BookController : Controller
         if (!ModelState.IsValid) return View(ApplyBookAuthorsSelectListItems(book));
         _bookService.Add(book);
         return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public IActionResult CreateApi()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public ActionResult CreateApi(Book book)
+    {
+        if (!ModelState.IsValid) return View();
+        _bookService.Add(book);
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpGet]

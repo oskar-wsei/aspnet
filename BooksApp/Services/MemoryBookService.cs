@@ -1,5 +1,6 @@
 ﻿using BooksApp.Contracts;
 using BooksApp.Models;
+using BooksApp.Pagination;
 
 namespace BooksApp.Services;
 
@@ -33,6 +34,11 @@ public class MemoryBookService : IBookService
     public List<Book> FindAll(bool includeAuthor)
     {
         return _books.Values.ToList();
+    }
+
+    public PagedList<Book> FindPage(int pageNumber, int pageSize, bool includeAuthor)
+    {
+        return new PagedList<Book>(FindAll(includeAuthor), _books.Count, pageNumber, pageSize);
     }
 
     public Book? FindById(int id, bool includeAuthor)

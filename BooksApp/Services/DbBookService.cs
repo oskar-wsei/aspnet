@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BooksApp.Contracts;
 using BooksApp.Models;
+using BooksApp.Pagination;
 using BooksAppData;
 using BooksAppData.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +43,20 @@ public class DbBookService : IBookService
         var query = _dbContext.Books.AsQueryable();
         if (includeAuthor) query = query.Include(book => book.Author);
         return _mapper.Map<List<Book>>(query.ToList());
+    }
+
+    public PagedList<Book> FindPage(int pageNumber, int pageSize, bool includeAuthor)
+    {
+        var totalCount = _dbContext.Books.Count();
+        var query = _dbContext.Books.AsQueryable()
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize);
+
+        if (includeAuthor) query = query.Include(book => book.Author);
+
+        return new PagedList<Book>(
+            query.ToList().Select(entity => _mapper.Map<Book>(entity)), totalCount, pageNumber, pageSize
+        );
     }
 
     public Book? FindById(int id, bool includeAuthor)

@@ -1,4 +1,4 @@
-﻿@model ICollection<Book>
+﻿@model PagedList<Book>
 @{
     ViewData["Title"] = "Books";
 }
@@ -60,6 +60,50 @@
             }
         </tbody>
     </table>
+    
+    <nav aria-label="Books page navigation"> 
+        <ul class="pagination"> 
+            @if (Model.HasPrevious) 
+            { 
+                <li class="page-item">
+                <a class="page-link" 
+                    asp-controller="Book" 
+                    asp-action="PagedIndex" 
+                    asp-route-page="@(Model.PageNumber - 1)" 
+                    asp-route-size="@Model.PageSize">
+                Previous
+                </a>
+                </li> 
+            } 
+            else 
+            { 
+                <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+                </li> 
+            } 
+            <li class="page-item disabled">
+            <a class="page-link" >@Model.PageNumber</a>
+            </li> 
+            @if (Model.HasNext) 
+            { 
+                <li class="page-item">
+                <a class="page-link" 
+                    asp-controller="Book" 
+                    asp-action="PagedIndex" 
+                    asp-route-page="@(Model.PageNumber + 1)" 
+                    asp-route-size="@Model.PageSize">
+                    Next
+                </a>
+                </li> 
+            } 
+            else 
+            { 
+                <li class="page-item disabled">
+                <a class="page-link">Next</a>
+                </li> 
+            } 
+        </ul>
+    </nav>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
