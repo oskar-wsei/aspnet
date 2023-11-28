@@ -1,10 +1,13 @@
 ﻿using BooksApp.Contracts;
 using BooksApp.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BooksApp.Controllers;
 
+[Authorize(Roles = "ADMIN")]
 public class BookController : Controller
 {
     private readonly IBookService _bookService;
@@ -16,8 +19,12 @@ public class BookController : Controller
         _authorService = authorService;
     }
 
+    [HttpGet]
+    [AllowAnonymous]
     public IActionResult Index()
     {
+        Console.WriteLine(User.IsInRole("Admin"));
+        
         return View(_bookService.FindAll(includeAuthor: true));
     }
 
@@ -36,6 +43,7 @@ public class BookController : Controller
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public IActionResult Details(int id)
     {
         var book = _bookService.FindById(id, includeAuthor: true);
