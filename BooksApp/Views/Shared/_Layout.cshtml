@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using BooksApp.Middlewares
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -46,7 +47,25 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - BooksApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <div>
+                    &copy; 2023 - BooksApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+                <div>
+                    @{
+                        var lastVisitDate = @Context.Items[LastVisitMiddleware.CookieName];
+                        
+                        if (lastVisitDate is not null)
+                        {
+                            @: Last visit: @lastVisitDate
+                        }
+                        else
+                        {
+                            @: This is your first visit!
+                        }
+                    }
+                </div>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

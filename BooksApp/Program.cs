@@ -1,8 +1,8 @@
 using BooksApp.Contracts;
+using BooksApp.Middlewares;
 using BooksApp.Services;
 using BooksAppData;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +17,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<App
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
+builder.Services.AddSingleton<LastVisitMiddleware>();
 
 var app = builder.Build();
 
@@ -32,6 +33,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseMiddleware<LastVisitMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
