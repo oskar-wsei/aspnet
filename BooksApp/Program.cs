@@ -13,8 +13,7 @@ builder.Services.AddTransient<IBookService, DbBookService>();
 builder.Services.AddTransient<IAuthorService, DbAuthorService>();
 builder.Services.AddSingleton<IDateTimeProvider, CurrentDateTimeProvider>();
 builder.Services.AddDbContext<AppDbContext>();
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();

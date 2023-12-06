@@ -163,8 +163,8 @@ namespace BooksAppData.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "97cfe2b9-8f4a-46a2-86e8-37b76b7c0d4e", "97cfe2b9-8f4a-46a2-86e8-37b76b7c0d4e", "user", "USER" },
-                    { "f20b1795-8cb6-4690-b43c-112a7400fc01", "f20b1795-8cb6-4690-b43c-112a7400fc01", "admin", "ADMIN" }
+                    { "136c1fa0-969c-48ad-a5b7-6a9263c6a596", "136c1fa0-969c-48ad-a5b7-6a9263c6a596", "admin", "ADMIN" },
+                    { "5704f9fe-08ff-45f5-ac9f-daba22077c9e", "5704f9fe-08ff-45f5-ac9f-daba22077c9e", "user", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -172,8 +172,8 @@ namespace BooksAppData.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "311422cc-f946-4056-8efa-0652304c525a", 0, "7949425b-f81a-40d7-a6ec-044d9b750a5b", "user@wsei.edu.pl", true, false, null, "USER@WSEI.EDU.PL", "USER", "AQAAAAIAAYagAAAAED7/CGUkJtV+H6Tz5JFICybCz79XY/fzF5+/62BqGFcY43DYg6hHky30J8u+kW3BJQ==", null, false, "ff9126eb-fa17-48e7-9a8a-4807ec0d50af", false, "user" },
-                    { "f82dac9e-ae37-4c66-bfb1-2befcc245abf", 0, "2726fa8f-9c66-4339-ace3-24dadf66e643", "admin@wsei.edu.pl", true, false, null, "ADMIN@WSEI.EDU.PL", "ADMIN", "AQAAAAIAAYagAAAAEB/OgkXBdFJMRoC3SKwDbMlO22CRwIjQL+upzbkI/AH02fcB7I4a19X7lqOZgJVTyg==", null, false, "67baa45b-eb6f-400e-bc6c-f6e5e30097a7", false, "admin" }
+                    { "ae3a75dd-c353-450d-8b55-501ce20d0389", 0, "826365dc-4858-4e93-9fa4-0dc5118ee4c4", "admin@wsei.edu.pl", true, false, null, "ADMIN@WSEI.EDU.PL", "ADMIN", "AQAAAAIAAYagAAAAEAzGURh0cKR9wrtiIhUBHzaQIYbq47y6e4oElq5rqzb0hsqJACPR0XLp+h0zw5QQCQ==", null, false, "7d8af554-251b-4a4b-b95a-4cb10ae24775", false, "admin" },
+                    { "c95e5c82-c4ef-4f0a-91a5-b83805f6aee9", 0, "6782dd87-398b-4461-a797-e6af62a6efc3", "user@wsei.edu.pl", true, false, null, "USER@WSEI.EDU.PL", "USER", "AQAAAAIAAYagAAAAEK/AII38xuzK3Gf9VFrEo7lC16zeqq4Y+dqJ3XXtVhO05y2RVoLuWTF1c5Bka3HYVw==", null, false, "ca14d079-b0cf-4a56-914e-6f96740eb3c9", false, "user" }
                 });
 
             migrationBuilder.InsertData(
@@ -181,8 +181,8 @@ namespace BooksAppData.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "97cfe2b9-8f4a-46a2-86e8-37b76b7c0d4e", "311422cc-f946-4056-8efa-0652304c525a" },
-                    { "f20b1795-8cb6-4690-b43c-112a7400fc01", "f82dac9e-ae37-4c66-bfb1-2befcc245abf" }
+                    { "136c1fa0-969c-48ad-a5b7-6a9263c6a596", "ae3a75dd-c353-450d-8b55-501ce20d0389" },
+                    { "5704f9fe-08ff-45f5-ac9f-daba22077c9e", "c95e5c82-c4ef-4f0a-91a5-b83805f6aee9" }
                 });
 
             migrationBuilder.CreateIndex(
