@@ -1,0 +1,92 @@
+﻿@inject UserManager<IdentityUser> UserManager
+@{
+    bool IsPageActive(string page) => Context.Request.Path.Value?.StartsWith($"/Admin/{page}") ?? false;
+    string SidebarItemClassname(string page) => IsPageActive(page) ? "active" : "";
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewData["Title"] - Admin</title>
+    <script src="https://kit.fontawesome.com/1589657b78.js" crossorigin="anonymous" defer></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/admin/css/admin.css" asp-append-version="true" />
+</head>
+
+<body>
+    <aside class="admin-sidebar">
+        <header class="admin-sidebar-header">
+            <img class="admin-sidebar-logo" src="~/admin/images/admin_logo.svg" alt="Admin Panel" />
+        </header>
+        <nav class="admin-sidebar-nav">
+            <a class="admin-sidebar-nav-item @(SidebarItemClassname("Dashboard"))" asp-page="/Dashboard/Index">
+                <span class="admin-sidebar-nav-item-icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                </span>
+                Dashboard
+            </a>
+            <a class="admin-sidebar-nav-item @(SidebarItemClassname("Pages"))" asp-page="/Pages/Index">
+                <span class="admin-sidebar-nav-item-icon">
+                    <i class="fa-solid fa-newspaper"></i>
+                </span>
+                Pages
+            </a>
+            <a class="admin-sidebar-nav-item @(SidebarItemClassname("Books"))" asp-page="/Books/Index">
+                <span class="admin-sidebar-nav-item-icon">
+                    <i class="fa-solid fa-book"></i>
+                </span>
+                Books
+            </a>
+            <a class="admin-sidebar-nav-item @(SidebarItemClassname("Authors"))" asp-page="/Authors/Index">
+                <span class="admin-sidebar-nav-item-icon">
+                    <i class="fa-solid fa-address-book"></i>
+                </span>
+                Authors
+            </a>
+            <a class="admin-sidebar-nav-item @(SidebarItemClassname("Publishers"))" asp-page="/Publishers/Index">
+                <span class="admin-sidebar-nav-item-icon">
+                    <i class="fa-solid fa-book-atlas"></i>
+                </span>
+                Publishers
+            </a>
+            <a class="admin-sidebar-nav-item @(SidebarItemClassname("Users"))" asp-page="/Users/Index">
+                <span class="admin-sidebar-nav-item-icon">
+                    <i class="fa-solid fa-user-group"></i>
+                </span>
+                Users
+            </a>
+        </nav>
+        <footer class="admin-sidebar-footer">
+
+        </footer>
+    </aside>
+
+    <header class="admin-header">
+        <div class="container-fluid h-100">
+            <div class="d-flex align-items-center justify-content-between h-100">
+                <div>
+                    <span>Hello <b>@UserManager.GetUserName(User)</b>!</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <a class="btn btn-dark" asp-controller="Home">Go to site</a>
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
+                          asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="btn btn-danger">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
