@@ -22,7 +22,7 @@ public class LastVisitMiddleware : IMiddleware
 
         try
         {
-            return DateTime.Parse(lastVisitDateString);
+            return DateTime.Parse(lastVisitDateString, CultureInfo.InvariantCulture);
         }
         catch (Exception e)
         {
