@@ -14,7 +14,6 @@ public class BookEntity
     [Column("title")]
     public string? Title { get; set; }
 
-    [Required]
     [Column("author_id")]
     public int? AuthorId { get; set; }
 

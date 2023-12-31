@@ -12,8 +12,62 @@
             <div class="card">
                 <div class="card-body">
                     <h1>@ViewData["Title"]</h1>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                    <th>Manage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var author in Model.Authors)
+                                {
+                                    <tr>
+                                        <td>@author.Id</td>
+                                        <td>@author.FirstName</td>
+                                        <td>@author.LastName</td>
+                                        <td>
+                                            <button class="btn btn-danger"
+                                                    data-author-delete="@author.Id"
+                                                    data-author-name="@author.FirstName @author.LastName">
+                                                <i class="fa-solid fa-trash-can me-1"></i> Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+@section Scripts
+{
+    <script>
+        defer(() => {
+            const buttons = document.querySelectorAll('[data-author-delete]');
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', async () => {
+                    const { authorDelete: authorId, authorName } = button.dataset;
+                    
+                    const hasConfirmed = await displayConfirmation(
+                        'Delete author',
+                        `Do you want to delete the author '${authorName}'?`
+                    );
+                    
+                    if (hasConfirmed) formSubmit(`/Admin/Authors/Delete/${authorId}`);
+                });
+            });
+        });
+    </script>
+}
+

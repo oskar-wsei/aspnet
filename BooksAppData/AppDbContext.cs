@@ -34,7 +34,8 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
         modelBuilder.Entity<BookEntity>()
             .HasOne(book => book.Author)
             .WithMany(author => author.Books)
-            .HasForeignKey(book => book.AuthorId);
+            .HasForeignKey(book => book.AuthorId)
+            .OnDelete(DeleteBehavior.SetNull);
 
         CreateIdentity(modelBuilder);
         CreateAuthors(modelBuilder);

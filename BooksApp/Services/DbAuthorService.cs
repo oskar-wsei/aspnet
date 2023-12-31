@@ -25,7 +25,10 @@ public class DbAuthorService : IAuthorService
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        var author = _dbContext.Authors.Find(id);
+        if (author is null) return;
+        _dbContext.Remove(author);
+        _dbContext.SaveChanges();
     }
 
     public List<Author> FindAll()

@@ -9,9 +9,9 @@ namespace BooksApp.Areas.Admin.Pages.Users;
 [Authorize(Roles = "admin")]
 public class IndexPage : PageModel
 {
-    private readonly UserManager<IdentityUser> _userManager;
-    
     public List<IdentityUser> Users { get; set; }
+    
+    private readonly UserManager<IdentityUser> _userManager;
 
     public IndexPage(UserManager<IdentityUser> userManager)
     {
