@@ -1,0 +1,49 @@
+﻿@page
+@model BooksApp.Areas.Admin.Pages.Users.CreatePage
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create user";
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h1>@ViewData["Title"]</h1>
+                    
+                    <div class="alert alert-danger mt-3 pb-0" role="alert" asp-validation-summary="ModelOnly"></div>
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.UserName"></label>
+                            <input class="form-control" asp-for="Form.UserName" />
+                            <span class="text-danger form-text" asp-validation-for="Form.UserName"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.Email"></label>
+                            <input class="form-control" asp-for="Form.Email" />
+                            <span class="text-danger form-text" asp-validation-for="Form.Email"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.Password"></label>
+                            <input class="form-control" asp-for="Form.Password" />
+                            <span class="text-danger form-text" asp-validation-for="Form.Password"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.ConfirmPassword"></label>
+                            <input class="form-control" asp-for="Form.ConfirmPassword" />
+                            <span class="text-danger form-text" asp-validation-for="Form.ConfirmPassword"></span>
+                        </div>
+
+                        <button class="btn btn-primary">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
