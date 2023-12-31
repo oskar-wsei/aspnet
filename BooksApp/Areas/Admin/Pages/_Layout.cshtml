@@ -1,4 +1,5 @@
 ﻿@inject UserManager<IdentityUser> UserManager
+
 @{
     bool IsPageActive(string page) => Context.Request.Path.Value?.StartsWith($"/Admin/{page}") ?? false;
     string SidebarItemClassname(string page) => IsPageActive(page) ? "active" : "";
@@ -87,6 +88,8 @@
     </main>
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>
