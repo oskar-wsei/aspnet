@@ -19,6 +19,17 @@ builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddSingleton<LastVisitMiddleware>();
 
+if (!builder.Environment.IsDevelopment())
+{
+    builder.Services.AddRazorPages();
+    builder.Services.AddControllersWithViews();
+}
+else
+{
+    builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+    builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+}
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
