@@ -14,27 +14,57 @@
                     <h1>@ViewData["Title"]</h1>
                     <a class="btn btn-primary mb-3" asp-page="Create">Add user</a>
 
-                    <table class="table table-bordered table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Email</th>
-                                <th>Username</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var user in Model.Users)
-                            {
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover mb-0">
+                            <thead>
                                 <tr>
-                                    <td>@user.Id</td>
-                                    <td>@user.Email</td>
-                                    <td>@user.UserName</td>
+                                    <th>Id</th>
+                                    <th>Email</th>
+                                    <th>Username</th>
+                                    <th>Manage</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in Model.Users)
+                                {
+                                    <tr>
+                                        <td>@user.Id</td>
+                                        <td>@user.Email</td>
+                                        <td>@user.UserName</td>
+                                        <td>
+                                            <button class="btn btn-danger" data-user-delete="@user.Id" data-user-name="@user.UserName">
+                                                <i class="fa-solid fa-trash-can me-1"></i> Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+    <script>
+        defer(() => {
+            const buttons = document.querySelectorAll('[data-user-delete]');
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', async () => {
+                    const { userDelete: userId, userName } = button.dataset;
+                    
+                    const hasConfirmed = await displayConfirmation(
+                        'Delete user',
+                        `Do you want to delete the user '${userName}'?`
+                    );
+                    
+                    if (hasConfirmed) formSubmit(`/Admin/Users/Delete/${userId}`);
+                });
+            });
+        });
+    </script>
+}
