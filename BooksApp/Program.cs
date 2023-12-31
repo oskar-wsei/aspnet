@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddTransient<IBookService, DbBookService>();
 builder.Services.AddTransient<IAuthorService, DbAuthorService>();
 builder.Services.AddSingleton<IDateTimeProvider, CurrentDateTimeProvider>();
@@ -49,6 +47,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
 app.MapRazorPages();
+
+app.MapControllerRoute(
+    name: "area",
+    pattern: "{area:exists}/{controller}/{action}/{id?}");
 
 app.MapControllerRoute(
     name: "default",
