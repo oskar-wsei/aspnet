@@ -2,6 +2,7 @@
 using BooksApp.Contracts;
 using BooksApp.Models;
 using BooksAppData;
+using BooksAppData.Entities;
 
 namespace BooksApp.Services;
 
@@ -18,9 +19,12 @@ public class DbAuthorService : IAuthorService
         _mapper = mapper;
     }
     
-    public int Add(Author book)
+    public int Add(Author author)
     {
-        throw new NotImplementedException();
+        var entity = _mapper.Map<AuthorEntity>(author);
+        var entry = _dbContext.Authors.Add(entity);
+        _dbContext.SaveChanges();
+        return entry.Entity.Id ?? 0;
     }
 
     public void Delete(int id)
@@ -38,11 +42,17 @@ public class DbAuthorService : IAuthorService
 
     public Author? FindById(int id)
     {
-        throw new NotImplementedException();
+        var query = _dbContext.Authors.AsQueryable();
+        var entity = query.FirstOrDefault(b => b.Id == id);
+        return entity is null ? null : _mapper.Map<Author>(entity);
     }
 
-    public void Update(Author book)
+    public void Update(Author author)
     {
-        throw new NotImplementedException();
+        var entity = _dbContext.Authors.Find(author.Id);
+        if (entity is null) return;
+        _mapper.Map(author, entity);
+        _dbContext.Update(entity);
+        _dbContext.SaveChanges();
     }
 }

@@ -4,9 +4,9 @@ namespace BooksApp.Contracts;
 
 public interface IAuthorService
 {
-    int Add(Author book);
+    int Add(Author author);
     void Delete(int id);
-    void Update(Author book);
+    void Update(Author author);
     List<Author> FindAll();
     Author? FindById(int id);
 }
