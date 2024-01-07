@@ -13,7 +13,10 @@
     }
     <p>@Model.Pages page(s)</p>
     <p>ISBN: @Model.ISBN</p>
-    <p>Publisher: @Model.Publisher</p>
+    @if (Model.Publisher is not null)
+    {
+        <p>Publisher: @Model.Publisher.Name</p>
+    }
     <p>Publish year: @Model.PublishYear</p>
     <p>Created at: @Model.CreatedAt</p>
     @if (Model.UpdatedAt.HasValue)
@@ -21,4 +24,3 @@
         <p>Updated at: @Model.UpdatedAt</p>
     }
 </div>
-

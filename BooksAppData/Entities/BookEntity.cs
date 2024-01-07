@@ -29,8 +29,10 @@ public class BookEntity
     [Column("publish_year")]
     public int? PublishYear { get; set; }
 
-    [Column("publisher")]
-    public string? Publisher { get; set; }
+    [Column("publisher_id")]
+    public int? PublisherId { get; set; }
+    
+    public PublisherEntity? Publisher { get; set; }
 
     [Required]
     [Column("created_at")]

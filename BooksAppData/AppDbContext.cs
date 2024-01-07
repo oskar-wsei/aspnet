@@ -9,6 +9,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
 {
     public DbSet<BookEntity> Books { get; set; }
     public DbSet<AuthorEntity> Authors { get; set; }
+    public DbSet<PublisherEntity> Publishers { get; set; }
 
     private readonly string _storagePath;
 
@@ -36,9 +37,16 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
             .WithMany(author => author.Books)
             .HasForeignKey(book => book.AuthorId)
             .OnDelete(DeleteBehavior.SetNull);
+        
+        modelBuilder.Entity<BookEntity>()
+            .HasOne(book => book.Publisher)
+            .WithMany(publisher => publisher.Books)
+            .HasForeignKey(book => book.PublisherId)
+            .OnDelete(DeleteBehavior.SetNull);
 
         CreateIdentity(modelBuilder);
         CreateAuthors(modelBuilder);
+        CreatePublishers(modelBuilder);
         CreateBooks(modelBuilder);
     }
 
@@ -106,6 +114,22 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
         );
     }
 
+    private void CreatePublishers(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<PublisherEntity>().HasData(
+            new PublisherEntity
+            {
+                Id = 1,
+                Name = "Manning Publications"
+            },
+            new PublisherEntity
+            {
+                Id = 2,
+                Name = "Code Maze"
+            }
+        );
+    }
+
     private void CreateBooks(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<BookEntity>().HasData(
@@ -116,6 +140,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
                 AuthorId = 1,
                 Pages = 370,
                 PublishYear = 2017,
+                PublisherId = 1,
                 CreatedAt = DateTime.Parse("2021-02-25")
             },
             new BookEntity
@@ -125,6 +150,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
                 AuthorId = 2,
                 Pages = 300,
                 PublishYear = 2020,
+                PublisherId = 1,
                 CreatedAt = DateTime.Parse("2019-11-01")
             },
             new BookEntity
@@ -134,6 +160,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
                 AuthorId = 3,
                 Pages = 250,
                 PublishYear = 2019,
+                PublisherId = 2,
                 CreatedAt = DateTime.Parse("2018-05-04")
             }
         );

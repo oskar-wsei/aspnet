@@ -2,9 +2,9 @@
 using BooksApp.Contracts;
 using BooksApp.Models;
 using BooksApp.Pagination;
+using BooksApp.Resolvers;
 using BooksAppData;
 using BooksAppData.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace BooksApp.Services;
 
@@ -38,31 +38,31 @@ public class DbBookService : IBookService
         _dbContext.SaveChanges();
     }
 
-    public List<Book> FindAll(bool includeAuthor)
+    public List<Book> FindAll(BookResolver? resolver)
     {
         var query = _dbContext.Books.AsQueryable();
-        if (includeAuthor) query = query.Include(book => book.Author);
+        resolver?.Resolve(ref query);
         return _mapper.Map<List<Book>>(query.ToList());
     }
 
-    public PagedList<Book> FindPage(int pageNumber, int pageSize, bool includeAuthor)
+    public PagedList<Book> FindPage(int pageNumber, int pageSize, BookResolver? resolver)
     {
         var totalCount = _dbContext.Books.Count();
         var query = _dbContext.Books.AsQueryable()
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize);
 
-        if (includeAuthor) query = query.Include(book => book.Author);
+        resolver?.Resolve(ref query);
 
         return new PagedList<Book>(
             query.ToList().Select(entity => _mapper.Map<Book>(entity)), totalCount, pageNumber, pageSize
         );
     }
 
-    public Book? FindById(int id, bool includeAuthor)
+    public Book? FindById(int id, BookResolver? resolver)
     {
         var query = _dbContext.Books.AsQueryable();
-        if (includeAuthor) query = query.Include(book => book.Author);
+        resolver?.Resolve(ref query);
         var entity = query.FirstOrDefault(b => b.Id == id);
         return entity is null ? null : _mapper.Map<Book>(entity);
     }

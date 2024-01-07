@@ -26,8 +26,12 @@ public class Book
     [Range(0, int.MaxValue)]
     public int? PublishYear { get; set; }
 
-    [StringLength(maximumLength: 1024)]
-    public string? Publisher { get; set; }
+    [Display(Name = "Author")]
+    [HiddenInput]
+    public int? PublisherId { get; set; }
+    
+    [HiddenInput]
+    public Publisher? Publisher { get; set; }
 
     [HiddenInput]
     public DateTime? CreatedAt { get; set; }
@@ -44,4 +48,7 @@ public class Book
 
     [ValidateNever]
     public List<SelectListItem> Authors { get; set; }
+    
+    [ValidateNever]
+    public List<SelectListItem> Publishers { get; set; }
 }

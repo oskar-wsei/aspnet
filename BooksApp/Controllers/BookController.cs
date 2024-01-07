@@ -1,5 +1,6 @@
 ﻿using BooksApp.Contracts;
 using BooksApp.Models;
+using BooksApp.Resolvers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,14 +23,14 @@ public class BookController : Controller
     [AllowAnonymous]
     public IActionResult Index()
     {
-        return View(_bookService.FindAll(includeAuthor: true));
+        return View(_bookService.FindAll(new BookResolver { IncludeAuthor = true }));
     }
 
     [HttpGet]
     [AllowAnonymous]
     public IActionResult PagedIndex([FromQuery] int page = 1, [FromQuery] int size = 2)
     {
-        return View(_bookService.FindPage(page, size, includeAuthor: true));
+        return View(_bookService.FindPage(page, size, new BookResolver { IncludeAuthor = true }));
     }
 
     [HttpGet]
@@ -65,7 +66,7 @@ public class BookController : Controller
     [AllowAnonymous]
     public IActionResult Details(int id)
     {
-        var book = _bookService.FindById(id, includeAuthor: true);
+        var book = _bookService.FindById(id, new BookResolver { IncludeAuthor = true, IncludePublisher = true });
         if (book == null) return RedirectToAction("Index");
         return View(book);
     }

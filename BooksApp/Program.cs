@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddTransient<IBookService, DbBookService>();
 builder.Services.AddTransient<IAuthorService, DbAuthorService>();
+builder.Services.AddTransient<IPublisherService, DbPublisherService>();
 builder.Services.AddSingleton<IDateTimeProvider, CurrentDateTimeProvider>();
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<AppDbContext>();

@@ -16,5 +16,6 @@ public class BooksAppProfile : Profile
             .ForMember(entity => entity.CreatedAt, options => options.Ignore());
         
         CreateMap<AuthorEntity, Author>().ReverseMap();
+        CreateMap<PublisherEntity, Publisher>().ReverseMap();
     }
 }
