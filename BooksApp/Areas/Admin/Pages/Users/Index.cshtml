@@ -21,6 +21,7 @@
                                     <th>Id</th>
                                     <th>Email</th>
                                     <th>Username</th>
+                                    <th>Roles</th>
                                     <th>Manage</th>
                                 </tr>
                             </thead>
@@ -28,11 +29,15 @@
                                 @foreach (var user in Model.Users)
                                 {
                                     <tr>
-                                        <td>@user.Id</td>
-                                        <td>@user.Email</td>
-                                        <td>@user.UserName</td>
+                                        <td>@user.Identity.Id</td>
+                                        <td>@user.Identity.Email</td>
+                                        <td>@user.Identity.UserName</td>
+                                        <td>@string.Join(", ", user.Roles)</td>
                                         <td>
-                                            <button class="btn btn-danger" data-user-delete="@user.Id" data-user-name="@user.UserName">
+                                            <button
+                                                class="btn btn-danger"
+                                                data-user-delete="@user.Identity.Id"
+                                                data-user-name="@user.Identity.UserName">
                                                 <i class="fa-solid fa-trash-can me-1"></i> Delete
                                             </button>
                                         </td>
