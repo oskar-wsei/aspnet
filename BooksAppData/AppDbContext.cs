@@ -10,6 +10,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
     public DbSet<BookEntity> Books { get; set; }
     public DbSet<AuthorEntity> Authors { get; set; }
     public DbSet<PublisherEntity> Publishers { get; set; }
+    public DbSet<AnalyticsVisitEntity> AnalyticsVisits { get; set; }
 
     private readonly string _storagePath;
 

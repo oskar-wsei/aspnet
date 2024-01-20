@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<IBookService, DbBookService>();
 builder.Services.AddTransient<IAuthorService, DbAuthorService>();
 builder.Services.AddTransient<IPublisherService, DbPublisherService>();
+builder.Services.AddTransient<IAnalyticsService, DbAnalyticsService>();
 builder.Services.AddSingleton<IDateTimeProvider, CurrentDateTimeProvider>();
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
@@ -17,6 +18,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddSingleton<LastVisitMiddleware>();
+builder.Services.AddTransient<AnalyticsMiddleware>();
 
 if (!builder.Environment.IsDevelopment())
 {
@@ -44,6 +46,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseMiddleware<LastVisitMiddleware>();
+app.UseMiddleware<AnalyticsMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();

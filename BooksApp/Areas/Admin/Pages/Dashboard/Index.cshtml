@@ -12,8 +12,39 @@
             <div class="card">
                 <div class="card-body">
                     <h1>@ViewData["Title"]</h1>
+                    
+                    <h2>Site visits from last 7 days</h2>
+                    
+                    <canvas data-analytics-visits></canvas>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js" defer></script>
+    <script>
+        defer(async () => {
+            const canvas = document.querySelector('[data-analytics-visits]');
+            
+            const analyticsVisitsResponse = await fetch('/admin/api/analytics/visits');
+            const analyticsVisits = await analyticsVisitsResponse.json();
+            
+            new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels: analyticsVisits.map(row => row.date),
+                    datasets: [{
+                        label: 'Site visits',
+                        data: analyticsVisits.map(row => row.count),
+                        fill: true,
+                        backgroundColor: '#f3931b7f',
+                        borderColor: '#f3931b',
+                    }]
+                }
+            });
+        });
+    </script>
+}

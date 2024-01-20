@@ -14,8 +14,17 @@ public class BooksAppProfile : Profile
             .ForMember(entity => entity.Id, options => options.Ignore())
             .ForMember(entity => entity.UpdatedAt, options => options.Ignore())
             .ForMember(entity => entity.CreatedAt, options => options.Ignore());
+
+        CreateMap<AuthorEntity, Author>();
+        CreateMap<Author, AuthorEntity>()
+            .ForMember(entity => entity.Id, options => options.Ignore());
         
-        CreateMap<AuthorEntity, Author>().ReverseMap();
-        CreateMap<PublisherEntity, Publisher>().ReverseMap();
+        CreateMap<PublisherEntity, Publisher>();
+        CreateMap<Publisher, PublisherEntity>()
+            .ForMember(entity => entity.Id, options => options.Ignore());        
+        
+        CreateMap<AnalyticsVisitEntity, AnalyticsVisit>();
+        CreateMap<AnalyticsVisit, AnalyticsVisitEntity>()
+            .ForMember(entity => entity.Id, options => options.Ignore());
     }
 }
