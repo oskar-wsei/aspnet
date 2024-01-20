@@ -2,6 +2,7 @@
 
 using BooksApp.Contracts;
 using BooksApp.Models;
+using BooksAppData;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -21,15 +22,18 @@ public class UpdatePage : PageModel
     private readonly IAuthorService _authorService;
     private readonly IPublisherService _publisherService;
     private readonly IBookService _bookService;
+    private readonly AppDbContext _dbContext;
 
     public UpdatePage(
         IAuthorService authorService,
         IPublisherService publisherService,
-        IBookService bookService)
+        IBookService bookService,
+        AppDbContext dbContext)
     {
         _authorService = authorService;
         _publisherService = publisherService;
         _bookService = bookService;
+        _dbContext = dbContext;
     }
 
     public IActionResult OnGet(int id)
@@ -40,17 +44,30 @@ public class UpdatePage : PageModel
         return Page();
     }
 
-    public ActionResult OnPostAsync(int id)
+    public ActionResult OnPost(int id)
     {
         InitializeSelectItems();
         
         if (!ModelState.IsValid) return Page();
         
-        Form.Id = id;
+        // TODO: Find out why EF breaks foreign keys when AutoMapper patches existing entity
+        // Form.Id = id;
+        // _bookService.Update(Form);
         
-        _bookService.Update(Form);
-        
-        return Page();
+        var entity = _dbContext.Books.Find(id);
+        if (entity is null) return NotFound();
+
+        entity.Title = Form.Title;
+        entity.AuthorId = Form.AuthorId;
+        entity.PublisherId = Form.PublisherId;
+        entity.PublishYear = Form.PublishYear;
+        entity.ISBN = Form.ISBN;
+        entity.Pages = Form.Pages;
+
+        _dbContext.Books.Update(entity);
+        _dbContext.SaveChanges();
+
+        return RedirectToPage("Index");
     }
 
     private void InitializeSelectItems()
