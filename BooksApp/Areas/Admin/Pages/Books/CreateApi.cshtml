@@ -1,0 +1,118 @@
+﻿@page
+@model BooksApp.Areas.Admin.Pages.Books.CreateApiPage
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create book";
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h1>@ViewData["Title"]</h1>
+
+                    <div class="alert alert-danger mt-3 pb-0" role="alert" asp-validation-summary="ModelOnly"></div>
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.Title"></label>
+                            <input class="form-control" asp-for="Form.Title" />
+                            <span asp-validation-for="Form.Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                           <label for="filter-author">Find author</label>
+                           <input class="form-control mb-3" type="text" name="filter" id="filter-author"/>
+                           <label class="form-label" asp-for="Form.AuthorId"></label>
+                           <select class="form-select" asp-for="Form.AuthorId"></select>
+                           <span asp-validation-for="Form.AuthorId" class="text-danger"></span>
+                       </div>
+                        
+                        <div class="mb-3">
+                           <label for="filter-publisher">Find publisher</label>
+                           <input class="form-control mb-3" type="text" name="filter" id="filter-publisher"/>
+                           <label class="form-label" asp-for="Form.PublisherId"></label>
+                           <select class="form-select" asp-for="Form.PublisherId"></select>
+                           <span asp-validation-for="Form.PublisherId" class="text-danger"></span>
+                       </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.Pages"></label>
+                            <input class="form-control" asp-for="Form.Pages" />
+                            <span asp-validation-for="Form.Pages" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.ISBN"></label>
+                            <input class="form-control" asp-for="Form.ISBN" />
+                            <span asp-validation-for="Form.ISBN" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.PublishYear"></label>
+                            <input class="form-control" asp-for="Form.PublishYear" />
+                            <span asp-validation-for="Form.PublishYear" class="text-danger"></span>
+                        </div>
+
+                        <button class="btn btn-primary">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        defer(() => {
+             const select = document.getElementById("Form_AuthorId");
+             const filter = document.getElementById("filter-author");
+             
+             filter.addEventListener('input', async () => {
+                 try {
+                     const response = await fetch(`/api/authors?filter=${filter.value}`);
+                     const authors = await response.json();
+                     
+                     select.innerHTML = '';
+                     
+                     authors.forEach(author => {
+                         const option = document.createElement('option');
+                         option.setAttribute('value', author.id);
+                         option.innerText = author.fullName;
+                         select.appendChild(option);
+                     });
+                 } catch (error) {
+                     console.error('Could not fetch from API');
+                     console.error(error);
+                 }
+             });
+        });
+       
+        defer(() => {
+             const select = document.getElementById("Form_PublisherId");
+             const filter = document.getElementById("filter-publisher");
+             
+             filter.addEventListener('input', async () => {
+                 try {
+                     const response = await fetch(`/api/publishers?filter=${filter.value}`);
+                     const publishers = await response.json();
+                     
+                     select.innerHTML = '';
+                     
+                     publishers.forEach(publisher => {
+                         const option = document.createElement('option');
+                         option.setAttribute('value', publisher.id);
+                         option.innerText = publisher.name;
+                         select.appendChild(option);
+                     });
+                 } catch (error) {
+                     console.error('Could not fetch from API');
+                     console.error(error);
+                 }
+             });
+        });
+    </script>
+}

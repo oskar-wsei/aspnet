@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace BooksApp.Models;
@@ -28,8 +26,15 @@ public class Book
 
     [Display(Name = "Author")]
     [HiddenInput]
+    public int? AuthorId { get; set; }
+
+    [HiddenInput]
+    public Author? Author { get; set; }
+
+    [Display(Name = "Publisher")]
+    [HiddenInput]
     public int? PublisherId { get; set; }
-    
+
     [HiddenInput]
     public Publisher? Publisher { get; set; }
 
@@ -38,17 +43,4 @@ public class Book
 
     [HiddenInput]
     public DateTime? UpdatedAt { get; set; }
-
-    [Display(Name = "Author")]
-    [HiddenInput]
-    public int? AuthorId { get; set; }
-
-    [HiddenInput]
-    public Author? Author { get; set; }
-
-    [ValidateNever]
-    public List<SelectListItem> Authors { get; set; }
-    
-    [ValidateNever]
-    public List<SelectListItem> Publishers { get; set; }
 }

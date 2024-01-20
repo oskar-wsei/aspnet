@@ -1,0 +1,34 @@
+﻿@page "{id:int}"
+@model BooksApp.Areas.Admin.Pages.Books.DetailsPage
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Book details";
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h1>@ViewData["Title"]</h1>
+
+                    <a class="btn btn-dark mb-3" asp-page="Index"><i class="fa-solid fa-left-long"></i> Go back</a>
+
+                    <h2 class="mb-4">@Model.Book.Title</h2>
+                    
+                    <p>Author: @Model.Book.Author?.FullName</p>
+                    <p>Publisher: @Model.Book.Publisher?.Name</p>
+                    <p>Pages: @Model.Book.Pages</p>
+                    <p>ISBN: @Model.Book.ISBN</p>
+                    <p>Publish year: @Model.Book.PublishYear</p>
+                    <p>Created at: @Model.Book.CreatedAt</p>
+                    @if (Model.Book.UpdatedAt.HasValue)
+                    {
+                        <p>Updated at: @Model.Book.UpdatedAt</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

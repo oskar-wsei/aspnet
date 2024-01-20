@@ -1,0 +1,63 @@
+﻿@page "{id:int}"
+@model BooksApp.Areas.Admin.Pages.Books.UpdatePage
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Update book";
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h1>@ViewData["Title"]</h1>
+                    
+                    <a class="btn btn-dark mb-3" asp-page="Index"><i class="fa-solid fa-left-long"></i> Go back</a>
+
+                    <div class="alert alert-danger mt-3 pb-0" role="alert" asp-validation-summary="ModelOnly"></div>
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.Title"></label>
+                            <input class="form-control" asp-for="Form.Title" />
+                            <span asp-validation-for="Form.Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.AuthorId"></label>
+                            <select class="form-select" asp-for="Form.AuthorId" asp-items="@Model.Authors"></select>
+                            <span asp-validation-for="Form.AuthorId" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.PublisherId"></label>
+                            <select class="form-select" asp-for="Form.PublisherId" asp-items="Model.Publishers"></select>
+                            <span asp-validation-for="Form.PublisherId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.Pages"></label>
+                            <input class="form-control" asp-for="Form.Pages" />
+                            <span asp-validation-for="Form.Pages" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.ISBN"></label>
+                            <input class="form-control" asp-for="Form.ISBN" />
+                            <span asp-validation-for="Form.ISBN" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.PublishYear"></label>
+                            <input class="form-control" asp-for="Form.PublishYear" />
+                            <span asp-validation-for="Form.PublishYear" class="text-danger"></span>
+                        </div>
+
+                        <button class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
