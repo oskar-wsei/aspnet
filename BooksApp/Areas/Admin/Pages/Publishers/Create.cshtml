@@ -1,0 +1,31 @@
+﻿@page
+@model BooksApp.Areas.Admin.Pages.Publishers.CreatePage
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create publisher";
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h1>@ViewData["Title"]</h1>
+
+                    <div class="alert alert-danger mt-3 pb-0" role="alert" asp-validation-summary="ModelOnly"></div>
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.Name"></label>
+                            <input class="form-control" asp-for="Form.Name" />
+                            <span class="text-danger form-text" asp-validation-for="Form.Name"></span>
+                        </div>
+
+                        <button class="btn btn-primary">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
