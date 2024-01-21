@@ -39,15 +39,15 @@
                                         <td>@book.Author?.FullName</td>
                                         <td>@book.Publisher?.Name</td>
                                         <td>
+                                            <a class="btn btn-dark" asp-page="Update" asp-route-id="@book.Id">
+                                                <i class="fa-solid fa-pen me-1"></i>
+                                                Edit
+                                            </a>
                                             <button class="btn btn-danger"
                                                     data-book-delete="@book.Id"
                                                     data-book-name="@book.Title">
                                                 <i class="fa-solid fa-trash-can me-1"></i> Delete
                                             </button>
-                                            <a class="btn btn-dark" asp-page="Update" asp-route-id="@book.Id">
-                                                <i class="fa-solid fa-pen me-1"></i>
-                                                Edit
-                                            </a>
                                         </td>
                                     </tr>
                                 }

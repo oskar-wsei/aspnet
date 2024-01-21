@@ -18,9 +18,13 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  min-height: 100vh;
 }
 
 .form-label {
   margin-bottom: 0.25rem;
+}
+
+.footer {
+  padding: 1rem 0;
 }

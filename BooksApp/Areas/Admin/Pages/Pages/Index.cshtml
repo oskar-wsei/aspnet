@@ -12,8 +12,65 @@
             <div class="card">
                 <div class="card-body">
                     <h1>@ViewData["Title"]</h1>
+                    <a class="btn btn-primary mb-3" asp-page="Create">Add page</a>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Title</th>
+                                    <th>Slug</th>
+                                    <th>Manage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var pageItem in Model.Pages)
+                                {
+                                    <tr>
+                                        <td>@pageItem.Id</td>
+                                        <td>@pageItem.Title</td>
+                                        <td>@pageItem.Slug</td>
+                                        <td>
+                                            <a class="btn btn-dark" asp-page="Update" asp-route-id="@pageItem.Id">
+                                                <i class="fa-solid fa-pen me-1"></i>
+                                                Edit
+                                            </a>
+                                            <button class="btn btn-danger"
+                                                    data-page-delete="@pageItem.Id"
+                                                    data-page-name="@pageItem.Title">
+                                                <i class="fa-solid fa-trash-can me-1"></i> Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+    <script>
+        defer(() => {
+            const buttons = document.querySelectorAll('[data-page-delete]');
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', async () => {
+                    const { pageDelete: pageId, pageName } = button.dataset;
+                    
+                    const hasConfirmed = await displayConfirmation(
+                        'Delete page',
+                        `Do you want to delete the page '${pageName}'?`
+                    );
+                    
+                    if (hasConfirmed) formSubmit(`/Admin/Pages/Delete/${pageId}`);
+                });
+            });
+        });
+    </script>
+}

@@ -11,6 +11,7 @@ builder.Services.AddTransient<IBookService, DbBookService>();
 builder.Services.AddTransient<IAuthorService, DbAuthorService>();
 builder.Services.AddTransient<IPublisherService, DbPublisherService>();
 builder.Services.AddTransient<IAnalyticsService, DbAnalyticsService>();
+builder.Services.AddTransient<IPageService, DbPageService>();
 builder.Services.AddSingleton<IDateTimeProvider, CurrentDateTimeProvider>();
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
@@ -19,17 +20,10 @@ builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddSingleton<LastVisitMiddleware>();
 builder.Services.AddTransient<AnalyticsMiddleware>();
+builder.Services.AddTransient<PageListMiddleware>();
 
-if (!builder.Environment.IsDevelopment())
-{
-    builder.Services.AddRazorPages();
-    builder.Services.AddControllersWithViews();
-}
-else
-{
-    builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
-    builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
-}
+builder.Services.AddRazorPages();
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -47,6 +41,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseMiddleware<LastVisitMiddleware>();
 app.UseMiddleware<AnalyticsMiddleware>();
+app.UseMiddleware<PageListMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();

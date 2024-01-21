@@ -23,6 +23,12 @@ public class BooksAppProfile : Profile
         CreateMap<Publisher, PublisherEntity>()
             .ForMember(entity => entity.Id, options => options.Ignore());        
         
+        CreateMap<PageEntity, Page>();
+        CreateMap<Page, PageEntity>()
+            .ForMember(entity => entity.Id, options => options.Ignore())
+            .ForMember(entity => entity.UpdatedAt, options => options.Ignore())
+            .ForMember(entity => entity.CreatedAt, options => options.Ignore());
+        
         CreateMap<AnalyticsVisitEntity, AnalyticsVisit>();
         CreateMap<AnalyticsVisit, AnalyticsVisitEntity>()
             .ForMember(entity => entity.Id, options => options.Ignore());

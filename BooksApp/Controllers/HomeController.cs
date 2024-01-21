@@ -1,26 +1,35 @@
 ﻿using BooksApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using BooksApp.Contracts;
 
 namespace BooksApp.Controllers;
 
 public class HomeController : Controller
 {
+    private readonly IPageService _pageService;
     private readonly ILogger<HomeController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(IPageService pageService, ILogger<HomeController> logger)
     {
+        _pageService = pageService;
         _logger = logger;
     }
 
     public IActionResult Index()
     {
-        return View();
+        var page = _pageService.FindBySlug("home");
+        if (page is null) return NotFound();
+        return View("Page", page);
     }
 
-    public IActionResult Privacy()
+    [Route("/page/{slug}")]
+    public IActionResult Page(string slug)
     {
-        return View();
+        var page = _pageService.FindBySlug(slug);
+        if (page is null) return NotFound();
+        if (page.Slug == "home") return Redirect("Index");
+        return View("Page", page);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

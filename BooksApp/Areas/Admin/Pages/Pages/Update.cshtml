@@ -1,0 +1,50 @@
+﻿@page "{id:int}"
+@model BooksApp.Areas.Admin.Pages.Pages.UpdatePage
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Update page";
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h1>@ViewData["Title"]</h1>
+
+                    <a class="btn btn-dark mb-3" asp-page="Index"><i class="fa-solid fa-left-long"></i> Go back</a>
+
+                    <div class="alert alert-danger mt-3 pb-0" role="alert" asp-validation-summary="ModelOnly"></div>
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.Title"></label>
+                            <input class="form-control" asp-for="Form.Title" />
+                            <span class="text-danger form-text" asp-validation-for="Form.Title"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.Slug"></label>
+                            <input class="form-control" asp-for="Form.Slug" />
+                            <span class="text-danger form-text" asp-validation-for="Form.Slug"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Form.Content"></label>
+                            <textarea class="form-control" asp-for="Form.Content"></textarea>
+                            <span class="text-danger form-text" asp-validation-for="Form.Content"></span>
+                        </div>
+
+                        <button class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_RichTextEditor" />
+}

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="~/BooksApp.styles.css" asp-append-version="true" />
     <script src="https://kit.fontawesome.com/1589657b78.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="d-flex flex-column">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -25,21 +25,33 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Index">Books</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="PagedIndex">Books (Paged)</a>
                         </li>
+                        
+                        @foreach (var pageItem in (List<Page>)Context.Items["PageList"])
+                        {
+                            if (pageItem.Slug == "home") continue;
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"
+                                   asp-area=""
+                                   asp-controller="Home"
+                                   asp-action="Page"
+                                   asp-route-slug="@pageItem.Slug">@pageItem.Title</a>
+                            </li>
+                        }
+                        
                     </ul>
                     <partial name="_LoginPartial"/>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    
+    <div class="container flex-fill">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -49,7 +61,7 @@
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-between">
                 <div>
-                    &copy; 2023 - BooksApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    &copy; 2023 - BooksApp
                 </div>
                 <div>
                     @{
